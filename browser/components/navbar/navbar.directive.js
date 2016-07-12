@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('navbar', function ($state, $location) {
+app.directive('navbar', function ($state, $location, LogOutFactory) {
   return {
     restrict: 'E',
     templateUrl: '/browser/components/navbar/navbar.html',
@@ -10,6 +10,13 @@ app.directive('navbar', function ($state, $location) {
         var path = $location.path();
         return path.startsWith(partial);
       };
+      scope.logout = function(){
+        LogOutFactory.logout()
+        .then(function(res){
+          console.log(res);
+        })
+        .catch(console.error.bind(console));
+      };
     }
-  }
+  };
 });

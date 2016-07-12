@@ -6,6 +6,11 @@ var User = require('../api/users/user.model.js')
 //   res.send('hello')
 // })
 
+router.get('/logout', function(req, res, next){
+    req.session.destroy()
+    res.end();
+});
+
 router.post('/login', function(req, res, next){
   var email = req.body.email;
   var password = req.body.password;
@@ -17,7 +22,6 @@ router.post('/login', function(req, res, next){
   .then(function(user){
     if(user){
       req.session.user = user;
-      console.log('user\n\n\n', user);
       res.status(200).send(user);
     }
     else res.send(401)
@@ -28,10 +32,14 @@ router.post('/login', function(req, res, next){
 router.post("/signup", function(req, res, next){
   var email = req.body.email;
   var password = req.body.password;
+  var name = req.body.name;
+  var phoneNumber = req.body.phoneNumber
 
   User.create({
     email: email,
-    password: password
+    password: password,
+    name: name,
+    phone: phoneNumber
   })
   .then(function(user){
     res.send(user);

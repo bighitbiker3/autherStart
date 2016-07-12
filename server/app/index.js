@@ -16,10 +16,10 @@ app.use(session({
   activeDuration: 5 * 60 * 1000
 }));
 
-app.use(function (req, res, next) {
-  console.log('session', req.session);
-  next();
-});
+// app.use(function (req, res, next) {
+//   console.log('session', req.session);
+//   next();
+// });
 
 app.use('/api', function (req, res, next) {
   if (!req.session.counter) req.session.counter = 0;
