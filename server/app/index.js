@@ -8,7 +8,7 @@ app.use(require('./logging.middleware'));
 
 app.use(require('./request-state.middleware'));
 
-app.use(require('./statics.middleware'));
+
 
 app.use(session({
   secret: 'helloworld',
@@ -30,6 +30,8 @@ app.use('/api', function (req, res, next) {
 app.use('/auth', require('../authentication/router.js'));
 
 app.use('/api', require('../api/api.router'));
+
+app.use(require('./statics.middleware'));
 
 var validFrontendRoutes = ['/', '/stories', '/users', '/stories/:id', '/users/:id', '/signup', '/login'];
 var indexPath = path.join(__dirname, '..', '..', 'public', 'index.html');
