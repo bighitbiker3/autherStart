@@ -1,11 +1,11 @@
 
-app.controller("LoginCtrl", function($scope, LoginFactory, $state){
+app.controller("LoginCtrl", function($rootScope, $scope, LoginFactory, $state, UserFactory){
 
 	$scope.loginUser = function(){
-		// console.log($scope.user);
 		LoginFactory.loginUser($scope.user)
 		.then(function(data){
 			console.log(data);
+			$rootScope.currentUser = UserFactory.getUser(data)
 			$state.go("stories");
 		})
 		.catch(console.error.bind(console));

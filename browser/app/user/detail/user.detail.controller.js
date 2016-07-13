@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserDetailCtrl', function ($scope, user, Story, $state) {
+app.controller('UserDetailCtrl', function ($rootScope, $scope, user, Story, $state) {
   $scope.user = user;
   $scope.newStory = new Story({author_id: $scope.user.id});
   $scope.addStory = function () {
@@ -20,4 +20,9 @@ app.controller('UserDetailCtrl', function ($scope, user, Story, $state) {
   $scope.gotoUserList = function () {
     $state.go('users');
   };
+
+  $scope.currentUser = function(){
+    console.log('rooscope cur user', $rootScope.currentUser)
+    return $rootScope.currentUser;
+  }
 });

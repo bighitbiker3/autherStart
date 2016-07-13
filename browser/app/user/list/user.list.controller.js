@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserListCtrl', function ($scope, users, User) {
+app.controller('UserListCtrl', function ($rootScope, $scope, users, User) {
   $scope.users = users;
   $scope.addUser = function () {
     $scope.userAdd.save()
@@ -9,7 +9,11 @@ app.controller('UserListCtrl', function ($scope, users, User) {
       $scope.users.unshift(user);
     });
   };
-  
+  $scope.currentUser = function(){
+    console.log('rooscope cur user', $rootScope.currentUser)
+    return $rootScope.currentUser;
+  }
+
   $scope.userSearch = new User();
 
   $scope.userAdd = new User();

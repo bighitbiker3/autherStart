@@ -3,6 +3,8 @@
 var app = require('express')();
 var path = require('path');
 var session = require('express-session');
+var passport = require('passport');
+var User = require('../api/users/user.model.js');
 
 app.use(require('./logging.middleware'));
 
@@ -15,6 +17,29 @@ app.use(session({
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(function(req, res, next){
+  // console.log('user', req.user);
+  next();
+});
+
+
+passport.serializeUser(function(user, done){
+  done(null, user.id)
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findById(id)
+  .then(function (user) {
+    done(null, user);
+  })
+  .catch(function (err) {
+    done(err);
+  });
+});
 
 // app.use(function (req, res, next) {
 //   console.log('session', req.session);

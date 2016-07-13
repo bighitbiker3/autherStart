@@ -1,9 +1,12 @@
-app.factory("LoginFactory", function($http){
+
+
+app.factory("LoginFactory", function($http, UserFactory){
 	return {
 		loginUser: function(data){
 			return $http.post("/auth/login", data)
 			.then(function(res){
 				console.log(res);
+				UserFactory.getUser(res.data)
 				return res.data;
 			});
 		}
@@ -37,12 +40,11 @@ app.factory('LogOutFactory', function($http){
 });
 
 app.factory('UserFactory', function($http){
+	var currentUser;
 	return {
-		setUser: function(){
-
-		},
-		getUser: function(){
-
+		getUser: function(user){
+			currentUser = user
+			return currentUser;
 		}
 	}
 })

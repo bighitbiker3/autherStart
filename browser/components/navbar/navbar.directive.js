@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('navbar', function ($state, $location, LogOutFactory) {
+app.directive('navbar', function ($rootScope, $state, $location, LogOutFactory) {
   return {
     restrict: 'E',
     templateUrl: '/browser/components/navbar/navbar.html',
@@ -13,6 +13,7 @@ app.directive('navbar', function ($state, $location, LogOutFactory) {
       scope.logout = function(){
         LogOutFactory.logout()
         .then(function(res){
+          $rootScope.currentUser = null;
           console.log(res);
         })
         .catch(console.error.bind(console));

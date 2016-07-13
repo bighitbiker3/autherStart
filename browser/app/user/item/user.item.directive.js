@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('userItem', function () {
+app.directive('userItem', function ($rootScope) {
   return {
     restrict: 'E',
     templateUrl: '/browser/app/user/item/user.item.html',
@@ -19,6 +19,10 @@ app.directive('userItem', function () {
           if (!hasInitialized) hasInitialized = true;
           else scope.user.save();
         }, true);
+      }
+      scope.currentUser = function(){
+        console.log('rooscope cur user', $rootScope.currentUser)
+        return $rootScope.currentUser;
       }
       scope.removeUser = function () {
         scope.user.destroy()
